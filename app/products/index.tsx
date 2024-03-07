@@ -1,13 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import {
-  Button,
   FlatList,
-  Image,
-  Pressable,
   SafeAreaView,
-  ScrollView,
   Text,
-  TextInput,
   ToastAndroid,
   View,
 } from "react-native";
@@ -45,7 +40,11 @@ export default function App() {
 
   return (
     <SafeAreaView>
-      <SearchBar value={text} onChangeText={setText} />
+      <View className="p-2 pb-0 bg-white">
+        <Text className="text-3xl uppercase">Zalaura</Text>
+        <SearchBar value={text} onChangeText={setText} />
+      </View>
+      
       {filteredProducts.length === 0 ? (
         <View className="justify-center items-center">
           <Text className="text-2xl text-gray-400">No items to show.</Text>
