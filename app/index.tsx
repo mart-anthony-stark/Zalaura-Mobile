@@ -1,29 +1,14 @@
-import { StatusBar } from "expo-status-bar";
 import {
-  Button,
-  FlatList,
   Image,
-  Pressable,
   SafeAreaView,
-  ScrollView,
   Text,
-  TextInput,
-  ToastAndroid,
-  TouchableHighlight,
   TouchableOpacity,
   View,
 } from "react-native";
-import Sample from "../components/Sample";
 import { useState } from "react";
-import { products } from "../libs/data";
-import Card from "../components/Card";
-import Navbar from "../components/Navbar";
-import { Link, router } from "expo-router";
-import SearchBar from "../components/SearchBar";
+import { router } from "expo-router";
 
 export default function App() {
-  const [text, setText] = useState("");
-  const [isSelected, setIsSelected] = useState(false);
   return (
     <SafeAreaView className="items-center gap-2">
       <Image
@@ -40,7 +25,6 @@ export default function App() {
           <Text className="text-white text-xl">SHOP NOW</Text>
         </View>
       </TouchableOpacity>
-
     </SafeAreaView>
   );
 }

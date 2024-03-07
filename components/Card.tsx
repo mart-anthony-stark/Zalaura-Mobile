@@ -1,6 +1,7 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import { Product } from "../libs/data";
+import { Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { Product } from "../libs/types";
 import { router } from "expo-router";
+import { currencyFormatter } from "../utils";
 
 type CardProps = {
   item: Product;
@@ -8,28 +9,31 @@ type CardProps = {
 
 const Card = ({ item }: CardProps) => {
   return (
-    <View className="flex-row gap-4 items-center px-4">
+    <SafeAreaView className="flex-row gap-4 items-center px-2 my-4">
+      <View className="flex-1">
+
       <Image
-        className="h-40 w-32 my-2"
+        className="h-48 w-40 my-2"
         source={{
           uri: item.image,
         }}
-      />
+        />
+        </View>
 
-      <View className="items-start">
-        <Text className="text-xl">{item.brand}</Text>
-        <Text>{item.name}</Text>
-        <Text>{item.description}</Text>
+      <View className="items-start flex-1">
+        <Text className="text-lg">{item.title}</Text>
+        <Text>{item.category}</Text>
+        <Text>{currencyFormatter.format(item.price)}</Text>
 
         <TouchableOpacity
-          onPress={() => router.navigate({ pathname: "/products/[slug]", params: {slug: item.slug} })}
+          onPress={() => router.navigate({ pathname: "/products/[id]", params: {id: item.id} })}
         >
           <View className="bg-black p-2 mt-2">
             <Text className="text-white">View Item</Text>
           </View>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

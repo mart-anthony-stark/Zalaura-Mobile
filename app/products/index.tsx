@@ -12,18 +12,36 @@ import {
   View,
 } from "react-native";
 import { useEffect, useState } from "react";
-import { products } from "../../libs/data";
 import Card from "../../components/Card";
 import SearchBar from "../../components/SearchBar";
+import { Product } from "../../libs/types";
+import { getProducts } from "../../services/product.service";
+import Loading from "../../components/Loading";
 
 export default function App() {
   const [text, setText] = useState("");
-  const [items, setItems] = useState(products);
+  const [items, setItems] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const filteredProducts = products.filter((product) => {
+  const handleGetProducts = async () => {
+    const response = await getProducts();
+    if (!response?.data)
+      return ToastAndroid.show("Something went wrong.", ToastAndroid.BOTTOM);
+
+    setItems(response.data);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    handleGetProducts();
+  }, []);
+
+  const filteredProducts = items.filter((product) => {
     const regex = new RegExp(text, "i");
-    return product.name.match(regex) || product.brand.match(regex);
+    return product.title.match(regex) || product.category.match(regex);
   });
+
+  if (isLoading) return <Loading />;
 
   return (
     <SafeAreaView>

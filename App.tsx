@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import Sample from "./components/Sample";
 import { useState } from "react";
-import { products } from "./libs/data";
+import { products } from "./libs/types";
 import Card from "./components/Card";
 import Navbar from "./components/Navbar";
 
