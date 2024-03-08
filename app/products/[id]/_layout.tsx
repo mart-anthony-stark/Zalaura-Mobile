@@ -9,7 +9,7 @@ const Layout = () => {
         header: () => (
           <View className="p-4">
             <TouchableOpacity onPress={() => router.back()}>
-              <Text>Back</Text>
+              <Text>{"<"} Back</Text>
             </TouchableOpacity>
           </View>
         ),
