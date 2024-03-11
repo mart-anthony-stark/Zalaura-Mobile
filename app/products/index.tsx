@@ -1,17 +1,10 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  FlatList,
-  SafeAreaView,
-  Text,
-  ToastAndroid,
-  View,
-} from "react-native";
+import { SafeAreaView, Text, ToastAndroid, View } from "react-native";
 import { useEffect, useState } from "react";
-import Card from "../../components/Card";
 import SearchBar from "../../components/SearchBar";
 import { Product } from "../../libs/types";
 import { getProducts } from "../../services/product.service";
 import Loading from "../../components/Loading";
+import ProductsList from "../../components/ProductsList";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -36,25 +29,19 @@ export default function App() {
     return product.title.match(regex) || product.category.match(regex);
   });
 
-  if (isLoading) return <Loading />;
-
   return (
     <SafeAreaView>
       <View className="p-2 pb-0 bg-white">
         <Text className="text-3xl uppercase">Zalaura</Text>
         <SearchBar value={text} onChangeText={setText} />
       </View>
-      
-      {filteredProducts.length === 0 ? (
-        <View className="justify-center items-center">
-          <Text className="text-2xl text-gray-400">No items to show.</Text>
+
+      {isLoading ? (
+        <View className="mt-8">
+          <Loading />
         </View>
       ) : (
-        <FlatList
-          contentContainerStyle={{ paddingBottom: 100 }}
-          data={filteredProducts}
-          renderItem={({ item, index }) => <Card item={item} />}
-        />
+        <ProductsList products={filteredProducts} />
       )}
     </SafeAreaView>
   );
